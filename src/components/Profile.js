@@ -3,11 +3,12 @@ import app from "../firebase/firebase.init";
 
 const auth = getAuth(app);
 const Profile = ({ user }) => {
+  console.log(user)
   const handleGoogleSignOut=()=>{
       signOut(auth)
       .then(()=>{
           console.log("sign Out Successful")
-          user=""
+        user=[]
       })
       .catch((error)=>{
           console.log(("signout not successful"))
@@ -20,7 +21,7 @@ const Profile = ({ user }) => {
         Profile
       </h2>
       {user.email && (
-        <div className="profile-card  flex flex-col gap-3 items-center">
+          <div className="profile-card  flex flex-col gap-3 items-center">
           <img
             src={user.photoURL}
             alt={user.displayName}
@@ -37,6 +38,7 @@ const Profile = ({ user }) => {
             Sign out
           </button>
         </div>
+   
       )}
     </div>
   );
