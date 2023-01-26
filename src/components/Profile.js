@@ -3,15 +3,16 @@ import app from "../firebase/firebase.init";
 
 const auth = getAuth(app);
 const Profile = ({ user }) => {
-  // const handleGoogleSignOut=()=>{
-  //     signOut(auth)
-  //     .then(()=>{
-  //         console.log("sign Out Successful")
-  //     })
-  //     .catch((error)=>{
-  //         console.log(("signout not successful"))
-  //     })
-  // }
+  const handleGoogleSignOut=()=>{
+      signOut(auth)
+      .then(()=>{
+          console.log("sign Out Successful")
+          user=""
+      })
+      .catch((error)=>{
+          console.log(("signout not successful"))
+      })
+  }
 
   return (
     <div className="profile container mx-auto py-10">
@@ -30,7 +31,7 @@ const Profile = ({ user }) => {
           <p>ID: {user.uid}</p>
 
           <button
-            onClick={() => signOut(auth)}
+            onClick={handleGoogleSignOut}
             className="google-sign-in border h-14 w-48  rounded-3xl border-gray-400 text-xl text-gray-600 active:border-orange-500 active:bg-orange-500 active:text-orange-50"
           >
             Sign out
