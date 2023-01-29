@@ -8,6 +8,8 @@ import Profile from './components/Profile'
 import Login from './components/Login'
 import app from './firebase/firebase.init';
 import { useEffect, useState } from 'react';
+import RequireAuth from './components/RequireAuth';
+import RequireAuth2 from './components/RequireAuth2';
 
 const auth=getAuth(app)
 
@@ -27,13 +29,25 @@ const  App=()=> {
 
   return (
     <div className='app'>
-    <Navbar/>
+    <Navbar user={user} />
     <Routes>
       <Route path="/" element={<Home/>}/>
       <Route path="about" element={<About/>}/>
-      <Route path="/profile" element={<Profile user={user}/>}/>
-      <Route path="/login" element={<Login/>}/>
-      <Route path="/register" element={<Register/>}/>
+      <Route path="/profile" element={
+        <RequireAuth user={user}>
+          <Profile user={user} setUser={setUser}/>
+        </RequireAuth>
+      }/>
+      <Route path="/login" element={
+        <RequireAuth2 user={user}>
+          <Login/>
+        </RequireAuth2>
+      }/>
+      <Route path="/register" element={
+        <RequireAuth2 user={user}>
+          <Register/>
+        </RequireAuth2>
+      }/>
 
     </Routes>
     </div>

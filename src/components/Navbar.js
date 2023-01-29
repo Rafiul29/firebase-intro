@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-const Navbar = () => {
+
+const Navbar = ({user}) => {
   return (
     <div className='navbar flex justify-between mx-auto py-5 container border-b'>
         <Link to="/" className='font-medium text-orange-500 text-3xl'>Firebase</Link>
@@ -15,7 +16,11 @@ const Navbar = () => {
                 <Link className='text-xl hover:text-orange-400 duration-300' to='/profile'>Profile</Link>
             </li>
             <li>
-                <Link className='text-xl hover:text-orange-400 duration-300' to='/login'>Login</Link>
+                <Link 
+               to={`/${user?.email? "profile":"login"}`}
+                className='text-xl hover:text-orange-400 duration-300' >
+                    {user?.email? `Welcome to ${user.displayName}`:"Login"}
+                </Link>
             </li>
         </ul>
     </div>

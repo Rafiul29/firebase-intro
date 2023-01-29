@@ -1,14 +1,18 @@
 import { getAuth, signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 import app from "../firebase/firebase.init";
 
 const auth = getAuth(app);
-const Profile = ({ user }) => {
-  console.log(user)
+
+const Profile = ({ user,setUser }) => {
+const navigate=useNavigate()
+
   const handleGoogleSignOut=()=>{
       signOut(auth)
       .then(()=>{
           console.log("sign Out Successful")
-        user=[]
+          navigate("/login")
+          setUser("")
       })
       .catch((error)=>{
           console.log(("signout not successful"))
