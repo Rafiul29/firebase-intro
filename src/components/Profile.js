@@ -11,8 +11,8 @@ const navigate=useNavigate()
       signOut(auth)
       .then(()=>{
           console.log("sign Out Successful")
-          navigate("/login")
           setUser("")
+          navigate("/login")
       })
       .catch((error)=>{
           console.log(("signout not successful"))
@@ -42,7 +42,6 @@ const navigate=useNavigate()
             Sign out
           </button>
         </div>
-   
       )}
     </div>
   );
