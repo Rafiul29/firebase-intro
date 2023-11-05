@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import  { useRef, useState } from "react";
 import { app } from "../../firebase.init";
 import {
   getAuth,
@@ -13,7 +13,9 @@ const Login = () => {
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
   const emailRef=useRef();
+
   const auth = getAuth(app);
 
   const provider = new GoogleAuthProvider();
@@ -46,7 +48,8 @@ const Login = () => {
       });
   };
 
-  const resetPassword=(e)=>{
+  const resetPassword=()=>{
+ 
       const email=emailRef.current.value
       if(!email){
         setError("Please Provided your email address to reset password")
@@ -63,11 +66,11 @@ const Login = () => {
   }
 
   return (
-    <div>
-      <button onClick={handleWithGoogle}>Google Login</button>
+    <div className="p-5 bg-slate-300 space-y-5">
+      <button className="border-2 px-3 py-2 rounded-md hover:border-slate-500 duration-300" onClick={handleWithGoogle}>Google Login</button>
 
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center gap-5">
+        <div className="px-3 py-2">
           <input
             // onBlur={(e) => setEmail(e.target.value)}
             type="email"
@@ -76,6 +79,7 @@ const Login = () => {
             name="email"
             required
             ref={emailRef}
+            className="px-3 py-2 rounded-md outline-none  "
           />
         </div>
 
@@ -87,10 +91,12 @@ const Login = () => {
             id="password"
             name="password"
             required
+            className="px-3 py-2 rounded-md outline-none  "
           />
         </div>
 
-        <button type="submit">submit</button>
+        <button type="submit" className="items-center
+        border-2 px-3 py-2 rounded-md hover:border-slate-500 duration-300">submit</button>
       </form>
       <p>
         <small>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useContext, useState } from "react";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -7,6 +7,7 @@ import {
 } from "firebase/auth";
 import { app } from "../../firebase.init";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Register = () => {
   const auth = getAuth(app);
@@ -17,6 +18,10 @@ const Register = () => {
   const [showpassword, setShowpassword] = useState(false);
 
   const [error, setError] = useState("");
+
+const user=useContext(AuthContext);
+console.log(user)
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // validation
@@ -62,7 +67,7 @@ const Register = () => {
         console.log("user profile updted");
       })
       .catch((error) => {
-        setError("user profile not updated");
+        setError(error.message);
       });
   };
 
