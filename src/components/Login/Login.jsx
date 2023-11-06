@@ -8,8 +8,14 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Login = () => {
+
+  const {loginUser}=useContext(AuthContext);
+
+
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -38,7 +44,8 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-    signInWithEmailAndPassword(auth, email, password)
+    // signInWithEmailAndPassword(auth, email, password)
+    loginUser(email,password)
       .then((data) => {
         const user = data.user;
         console.log(user);
@@ -46,6 +53,7 @@ const Login = () => {
       .catch((error) => {
         console.log(error.message);
       });
+      form.reset();
   };
 
   const resetPassword=()=>{

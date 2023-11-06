@@ -19,57 +19,65 @@ const Register = () => {
 
   const [error, setError] = useState("");
 
-const user=useContext(AuthContext);
-console.log(user)
+const {user,createUser}=useContext(AuthContext);
+console.log(user,createUser)
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // validation
-    if (
-      !/(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9])(?=.{8,})/.test(
-        password
-      )
-    ) {
-      setError(
-        "Please add at least one lower case and uppder case letter and one special character and at least 1 digit"
-      );
-      return;
-    }
+    // if (
+    //   !/(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9])(?=.{8,})/.test(
+    //     password
+    //   )
+    // ) {
+    //   setError(
+    //     "Please add at least one lower case and uppder case letter and one special character and at least 1 digit"
+    //   );
+    //   return;
+    // }
 
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((data) => {
-        const user = data.user;
-        sendEmailverificationFirebase(user);
-        updateUserProfile(user, name);
-      })
+    // createUserWithEmailAndPassword(auth, email, password)
+    //   .then((data) => {
+    //     const user = data.user;
+    //     sendEmailverificationFirebase(user);
+    //     updateUserProfile(user, name);
+    //   })
 
-      .catch((error) => {
-        console.log(error.message);
-      });
-  };
-
-  const sendEmailverificationFirebase = (user) => {
-    sendEmailVerification(user)
-      .then((result) => {
-        console.log(result);
-        console.log("email verification send");
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
-  };
-
-  const updateUserProfile = (user, name) => {
-    updateProfile(user, {
-      displayName: name,
+    //   .catch((error) => {
+    //     console.log(error.message);
+    //   });
+    createUser(email,password)
+    .then(result=>{
+      const loggeduser=result.user;
+      console.log(loggeduser)
     })
-      .then(() => {
-        console.log("user profile updted");
-      })
-      .catch((error) => {
-        setError(error.message);
-      });
+    .catch(error=>{
+      console.log(error.message);
+    })
   };
+
+  // const sendEmailverificationFirebase = (user) => {
+  //   sendEmailVerification(user)
+  //     .then((result) => {
+  //       console.log(result);
+  //       console.log("email verification send");
+  //     })
+  //     .catch((error) => {
+  //       console.log(error.message);
+  //     });
+  // };
+
+  // const updateUserProfile = (user, name) => {
+  //   updateProfile(user, {
+  //     displayName: name,
+  //   })
+  //     .then(() => {
+  //       console.log("user profile updted");
+  //     })
+  //     .catch((error) => {
+  //       setError(error.message);
+  //     });
+  // };
 
   return (
     <div>
