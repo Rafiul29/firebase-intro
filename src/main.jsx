@@ -1,50 +1,56 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
+import App from './App'
 import './index.css'
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import Main from './components/Layout/Main.jsx';
-import Home from './components/Home/Home.jsx';
-import Login from './components/Login/Login.jsx';
-import Register from './components/Register./Register.jsx';
-import AuthProvider from './providers/AuthProvider.jsx';
-import Orders from './components/Orders/Orders.jsx';
-import PrivetRoutes from './components/routes/PrivetRoutes.jsx';
-
+import Shop from './components/Shop/Shop';
+import Home from './components/Layout/Home';
+import Orders from './components/Orders/Orders';
+import Inventory from './components/Inventory/Inventory';
+import Login from './components/Login/Login';
+import cartProductsLoader from './loaders/cartProductsLoader';
+import Checkout from './components/Checkout/Checkout';
+import SignUp from './components/SignUp/SignUp';
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element:  <Main />,
-    children:[
+    path: '/',
+    element: <Home></Home>,
+    children: [
       {
-        path:"/",
-        element:<Home/>
+        path: '/',
+        element: <Shop></Shop>
       },
       {
-        path:"/login",
-        element:<Login/>
+        path: 'orders',
+        element: <Orders></Orders>,
+        loader: cartProductsLoader
       },
       {
-        path:"/register",
-        element:<Register/>
+        path: 'inventory',
+        element: <Inventory></Inventory>
       },
       {
-        path:"/orders",
-        element:<PrivetRoutes><Orders/></PrivetRoutes>
+        path:'checkout',
+        element: <Checkout></Checkout>
+      },
+      {
+        path: 'login',
+        element: <Login></Login>
+      },
+      {
+        path:'signup',
+        element:<SignUp></SignUp>
       }
     ]
-  },
-]);
-
+  }
+])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-   <AuthProvider >
-   <RouterProvider router={router}/>
-   </AuthProvider>
+    <RouterProvider router={router} />
   </React.StrictMode>,
 )
